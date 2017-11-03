@@ -1,4 +1,5 @@
 import pprint
+import json
 import random
 from flask import Flask, render_template
 from googleapiclient.discovery import build
@@ -6,7 +7,7 @@ from googleapiclient.discovery import build
 #api key AIzaSyDjCVuiMp4eT0wLrRlGhmD7DsU_h8f7a-I
 
 #https://github.com/google/google-api-python-client/blob/master/samples/customsearch/main.py
-def main():
+def custom_search():
     service = build(
         "customsearch",
         "v1",
@@ -22,17 +23,25 @@ def main():
         #imgDominantColor='', #Returns images of a specific dominant color. Get param from body
         num=5,#Number of search results to return.
     ).execute()
-    return res['items']
+    res_json = json.dumps(res,sort_keys=True, indent=4)#encoding res to json
+    return (res['items'], res_json)
 
-results = main()
-for result in results:
-    print(result.get('link'))
+#extract the 'link' value from res['items']
+res_links = custom_search()[0]
+for res_link in res_links:
+    print(res_link.get('link'))
+
+#extract the 'searchTime' value from res_json
+results = json.loads(custom_search()[1])#parse json
+searchTime = results['searchInformation']['searchTime'] # extract 'searchTime' value
+print(searchTime)
+
 
 app = Flask(__name__)
 @app.route('/')
 def index():
     return render_template('home.html')
 
-main()
+
 if __name__ == '__main__':
     app.run(debug=True)
