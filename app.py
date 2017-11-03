@@ -1,4 +1,5 @@
 import pprint
+import random
 from flask import Flask, render_template
 from googleapiclient.discovery import build
 #custom search engine ID 000201262982528788274:btxholjtuq0
@@ -6,17 +7,22 @@ from googleapiclient.discovery import build
 
 #https://github.com/google/google-api-python-client/blob/master/samples/customsearch/main.py
 def main():
-  service = build("customsearch", "v1",
-            developerKey="AIzaSyABO4RjWa3GQSu11Sa9Y6FKy48rth4v_rs")
-#https://developers.google.com/custom-search/json-api/v1/reference/cse/list
-  res = service.cse().list(
-      q='hello',
-      cx='000201262982528788274:btxholjtuq0',
-      searchType='image', #Specifies the search type: image
-      #imgDominantColor='', Returns images of a specific dominant color. Get param from body
-      num=1,#Number of search results to return.
+    service = build(
+        "customsearch",
+        "v1",
+        developerKey="AIzaSyABO4RjWa3GQSu11Sa9Y6FKy48rth4v_rs"
+        )
+    array =['Man', 'Mountain', 'State', 'Ocean', 'Country', 'Building', 'Cat', 'Airline', 'Wealth', 'Happiness', 'Pride', 'Fear', 'Religion', 'Bird', 'Book', 'Phone', 'Rice', 'Snow', 'Water']
+    array_random = random.choice(array)
+    res = service.cse().list(
+        #https://developers.google.com/custom-search/json-api/v1/reference/cse/list
+        q=array_random,
+        cx='000201262982528788274:btxholjtuq0',
+        searchType='image', #Specifies the search type: image
+        #imgDominantColor='', #Returns images of a specific dominant color. Get param from body
+        num=1,#Number of search results to return.
     ).execute()
-  pprint.pprint(res)
+    pprint.pprint(res)
 
 app = Flask(__name__)
 @app.route('/')
