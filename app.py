@@ -4,16 +4,17 @@ from googleapiclient.discovery import build
 #custom search engine ID 000201262982528788274:btxholjtuq0
 #api key AIzaSyDjCVuiMp4eT0wLrRlGhmD7DsU_h8f7a-I
 
+#https://github.com/google/google-api-python-client/blob/master/samples/customsearch/main.py
 def main():
-  # Build a service object for interacting with the API. Visit
-  # the Google APIs Console <http://code.google.com/apis/console>
-  # to get an API key for your own application.
   service = build("customsearch", "v1",
             developerKey="AIzaSyABO4RjWa3GQSu11Sa9Y6FKy48rth4v_rs")
-
+#https://developers.google.com/custom-search/json-api/v1/reference/cse/list
   res = service.cse().list(
-      q='lectures',
+      q='hello',
       cx='000201262982528788274:btxholjtuq0',
+      searchType='image', #Specifies the search type: image
+      #imgDominantColor='', Returns images of a specific dominant color. Get param from body
+      num=1,#Number of search results to return.
     ).execute()
   pprint.pprint(res)
 
