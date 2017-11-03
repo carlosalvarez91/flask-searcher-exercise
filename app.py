@@ -13,16 +13,20 @@ def main():
         developerKey="AIzaSyABO4RjWa3GQSu11Sa9Y6FKy48rth4v_rs"
         )
     array =['Man', 'Mountain', 'State', 'Ocean', 'Country', 'Building', 'Cat', 'Airline', 'Wealth', 'Happiness', 'Pride', 'Fear', 'Religion', 'Bird', 'Book', 'Phone', 'Rice', 'Snow', 'Water']
-    array_random = random.choice(array)
+    array_random = random.choice(array)#choice randomly a value from the array
     res = service.cse().list(
         #https://developers.google.com/custom-search/json-api/v1/reference/cse/list
         q=array_random,
         cx='000201262982528788274:btxholjtuq0',
         searchType='image', #Specifies the search type: image
         #imgDominantColor='', #Returns images of a specific dominant color. Get param from body
-        num=1,#Number of search results to return.
+        num=5,#Number of search results to return.
     ).execute()
-    pprint.pprint(res)
+    return res['items']
+
+results = main()
+for result in results:
+    print(result.get('link'))
 
 app = Flask(__name__)
 @app.route('/')
