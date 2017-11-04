@@ -1,0 +1,15 @@
+
+body{
+    padding: 20px;
+}
+form.form-container {
+    padding-left: 10.5px;
+    padding-right:10.5px;
+}
+input{
+    outline: none;
+}
+.row.cointainer_results {
+    margin-top: 20px;
+}
+

@@ -2,25 +2,27 @@
 
 {% block body %}
 
-<form action="/search">
-    <select name="colors">
-      <option value="red">Red</option>
-      <option value="pink">Pink</option>
-      <option value="orange">Orange</option>
-      <option value="yellow">Yellow</option>
-      <option value="green">Green</option>
-      <option value="blue">Blue</option>
-      <option value="purple">Purple</option>
+<form action="/" class="form-container">
+  <div class="input-field col s12 m6">
+    <select class="icons" name="colors">
+      <option value="" disabled selected>Choose one color</option>
+      <option value="red" data-icon="images/red.jpg" class="left circle">Red</option>
+      <option value="pink" data-icon="images/pink.jpg" class="left circle">Pink</option>
+      <option value="orange" data-icon="images/orange.jpg" class="left circle">Orange</option>
+      <option value="yellow" data-icon="images/yellow.jpg" class="left circle">Yellow</option>
+      <option value="green" data-icon="images/green.jpg" class="left circle">Green</option>
+      <option value="blue" data-icon="images/blue.jpg" class="left circle">Blue</option>
+      <option value="purple" data-icon="images/purple.jpg" class="left circle">Purple</option>
     </select>
-    <input type="submit" value="Search">
+  </div>
+  <input type="submit" class="waves-effect waves-light btn" value="Search">
 </form>
-
 <!--Results-->
-<div>
+<div class="row cointainer_results">
   {% for res_link in res_links %}
-  <p>{{res_link.link}}</p>
+  <img src="{{res_link.link}}" class="col s12 m6 l3" alt="">
   {% endfor %}
-  <p>{{searchTime}}</p>
 </div>
-
+<strong>{{searchTime}}</strong> seconds
+ 
 {% endblock %}
