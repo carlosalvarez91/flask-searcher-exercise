@@ -17,6 +17,10 @@
 
 <!--Results-->
 <div>
+  {% for res_link in res_links %}
+  <p>{{res_link.link}}</p>
+  {% endfor %}
+  <p>{{searchTime}}</p>
 </div>
 
 {% endblock %}
