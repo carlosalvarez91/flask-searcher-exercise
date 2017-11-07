@@ -32,9 +32,7 @@ def custom_search():
         num=5,#Number of search results to return.
     ).execute()
     res_items = res['items']#extract the 'items' values from res
-    res_json = json.dumps(res,sort_keys=True, indent=4)#encoding res to json
-    results = json.loads(res_json)#parse json
-    searchTime = results['searchInformation']['searchTime'] # extract 'searchTime' value
+    searchTime = res['searchInformation']['searchTime']
     return render_template('home.html',res_items=res_items, searchTime=searchTime)
 
 @app.route('/')
